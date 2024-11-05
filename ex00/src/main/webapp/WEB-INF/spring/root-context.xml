@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="
+           http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+           http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd">
+
+	<!-- DB 연결 설정 -->
+	<bean id="HikariConfig" class="com.zaxxer.hikari.HikariConfig">
+		<!-- <property name="driverClassName"
+			value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" /> -->
+		<property name="jdbcUrl"
+			value="jdbc:log4jdbc:oracle:thin:@localhost:1521:xe" />
+		<property name="username" value="book_ex" />
+		<property name="password" value="1234" />
+	</bean>
+
+	<!-- 커넥션 풀 설정 -->
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
+		<constructor-arg ref="HikariConfig" />
+	</bean>
+
+	<!-- MyBatis SqlSessionFactory 설정 -->
+	<bean id="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- MyBatis 매퍼 인터페이스 자동 스캔 -->
+	<mybatis-spring:scan
+		base-package="org.zerock.Mapper" />
+
+	<!-- 컴포넌트 스캔 설정 -->
+	<context:component-scan
+		base-package="org.zerock.sample" />
+
+</beans>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mbc.controller.BoardMapper">
+
+	<insert id="insertWrite"
+		parameterType="com.mbc.controller.BoardDTO">
+		insert into board(num, title, content, id, visitcount, postdate)
+		values(#{num}, #{title}, #{content}, #{id}, #{visitcount},
+		#{postdate})
+	</insert>
+
+	<select id="selectOne" parameterType="String"
+		resultType="com.mbc.controller.BoardDTO">
+		select * from board where num = #{num}
+	</select>
+
+	<!-- 모든 게시물을 조회하는 selectAllList 쿼리 추가 -->
+	<select id="selectAllList"
+		resultType="com.mbc.controller.BoardDTO">
+		select * from board
+	</select>
+
+	<delete id="deleteBoard">
+		delete from board where num = #{num}
+	</delete>
+
+    <update id="updateBoard">
+        update board
+        set
+        title = #{title},
+        content = #{content}
+        where num = #{num}
+    </update>
+</mapper>
