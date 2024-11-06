@@ -21,27 +21,33 @@ public class DataSourceTests {
 
 	@Autowired
 	private DataSource dataSource;
-
+	
 	@Autowired
 	private SqlSessionFactory sessionFactory;
-
+	
 	@Test
 	public void testConnection() {
-		try (Connection con = dataSource.getConnection()) {
+		try(Connection con = dataSource.getConnection()) {
 			log.info("con : " + con);
-		} catch (Exception e) {
+		}catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
-
+	
+	
 	@Test
 	public void testMyBatis() {
-		try (
+		try(
 				SqlSession session = sessionFactory.openSession();
-				Connection con = session.getConnection()) {
+				Connection con = session.getConnection();
+		) {
 			log.info("con : " + con);
-		} catch (Exception e) {
+			log.info("session : " + session);
+		}catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
+	
 }
+
+
