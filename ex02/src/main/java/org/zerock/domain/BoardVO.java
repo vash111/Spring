@@ -2,6 +2,10 @@ package org.zerock.domain;
 
 import java.util.Date;
 
+import org.zerock.mapper.BoardMapper;
+import org.zerock.service.BoardServiceImpl;
+
+import lombok.Builder;
 import lombok.Data;
 
 /*CREATE TABLE tbl_board(
@@ -14,6 +18,7 @@ import lombok.Data;
 	);*/
 
 @Data
+//@Builder
 public class BoardVO {
 	
 	private Long bno;
